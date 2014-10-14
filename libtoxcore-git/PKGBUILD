@@ -1,0 +1,45 @@
+# Maintainer: Håvard Pettersson <mail@haavard.me>
+# Contributor: Boohbah <boohbah at gmail.com>
+# Contributor: naxuroqa <naxuroqa at gmail.com>
+
+_pkgname=libtoxcore
+pkgname="${_pkgname}-git"
+pkgver=r2847.gb41eadf
+pkgrel=1
+
+pkgdesc='P2P distributed instant messaging (core library)'
+arch=('i686' 'x86_64')
+url='https://tox.im/'
+license=('GPL3')
+
+depends=('libconfig' 'libsodium' 'libvpx' 'opus')
+makedepends=('check' 'git')
+
+provides=('tox')
+conflicts=('tox')
+
+source=("${pkgname}::git+https://github.com/irungentoo/toxcore")
+md5sums=('SKIP')
+
+pkgver() {
+  cd "${pkgname}"
+  printf "r%s.g%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+  cd "${pkgname}"
+  autoreconf -i
+  ./configure --prefix=/usr
+  make
+}
+
+# check() {
+#   cd "${pkgname}"
+#   make check
+# }
+
+package() {
+  cd "${pkgname}"
+  make DESTDIR="${pkgdir}" install
+}
+

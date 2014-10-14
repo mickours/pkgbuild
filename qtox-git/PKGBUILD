@@ -1,0 +1,57 @@
+# Maintainer: Håvard Pettersson <mail@haavard.me>
+# Contributor: Kevin MacMartin <prurigro at gmail dot com>
+
+_pkgname=qtox
+pkgname="${_pkgname}-git"
+pkgver=r928.gf2f5722
+pkgrel=1
+
+pkgdesc='Qt Tox client'
+arch=('i686' 'x86_64')
+url='https://github.com/tux3/qTox'
+license=('GPL3')
+
+depends=('tox' 'qt5-base' 'desktop-file-utils' 'opencv' 'openal')
+makedepends=('git')
+
+provides=("${_pkgname}")
+conflicts=("${_pkgname}")
+
+install="${pkgname}.install"
+
+source=("${pkgname}::git+https://github.com/tux3/qTox.git"
+        "${_pkgname}.desktop")
+md5sums=('SKIP'
+         '775f8d0403e28f674b160f6df10a5adb')
+sha256sums=('SKIP'
+            '681586914321da3131babc23702be7494d270bf7b635c78771399359ea497b63')
+
+pkgver() {
+  cd "${pkgname}"
+  printf "r%s.g%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+  cd "${pkgname}"
+  install -d libs
+  ln -s /usr/lib libs/
+  ln -s /usr/include libs/
+  sed -i 's|SMILEYPACK_DEFAULT_PATH "./smileys"|SMILEYPACK_DEFAULT_PATH "/usr/share/qtox/smileys"|' src/misc/smileypack.h
+}
+
+build() {
+  cd "${pkgname}"
+  install -d build
+  cd build
+  qmake-qt5 ..
+  make
+}
+
+package() {
+    install -Dm644 "${_pkgname}.desktop" "${pkgdir}/usr/share/applications/${_pkgname}.desktop"
+    install -Dm644 "${pkgname}/img/icon.png" "${pkgdir}/usr/share/pixmaps/${_pkgname}.png"
+    install -Dm755 "${pkgname}/build/${_pkgname}" "${pkgdir}/usr/bin/${_pkgname}"
+    install -d "${pkgdir}/usr/share/${_pkgname}"
+    cp -R "${pkgname}/smileys" "${pkgdir}/usr/share/${_pkgname}"
+}
+

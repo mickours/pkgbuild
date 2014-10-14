@@ -7,12 +7,12 @@ pkgname="${_pkgname}-git"
 pkgver=r2847.gb41eadf
 pkgrel=1
 
-pkgdesc='P2P distributed instant messaging (core library)'
+pkgdesc='Peer to peer distributed multimedia messenger (core library)'
 arch=('i686' 'x86_64')
 url='https://tox.im/'
 license=('GPL3')
 
-depends=('libconfig' 'libsodium' 'libvpx' 'opus')
+depends=('libconfig>=1.4' 'libsodium' 'libvpx' 'opus')
 makedepends=('check' 'git')
 
 provides=('tox')
@@ -29,7 +29,9 @@ pkgver() {
 build() {
   cd "${pkgname}"
   autoreconf -i
-  ./configure --prefix=/usr
+  ./configure --prefix=/usr \
+              --enable-ntox \
+              --enable-daemon
   make
 }
 

@@ -1,0 +1,12 @@
+post_upgrade() {
+  update-desktop-database -q
+}
+
+post_install() {
+  post_upgrade $1
+}
+
+post_remove() {
+  post_upgrade $1
+}
+

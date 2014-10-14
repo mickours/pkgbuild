@@ -17,7 +17,7 @@ makedepends=('git')
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
 
-install="${pkgname}.install"
+install="${_pkgname}.install"
 
 source=("${pkgname}::git+https://github.com/tux3/qTox.git"
         "${_pkgname}.desktop")

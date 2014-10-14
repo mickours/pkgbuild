@@ -20,7 +20,7 @@ conflicts=('utox')
 source=("${pkgname}::git+https://github.com/notsecure/uTox")
 md5sums=('SKIP')
 
-install='utox-git.install'
+install="${_pkgname}.install"
 
 pkgver() {
   cd "${pkgname}"

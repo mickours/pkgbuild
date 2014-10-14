@@ -1,0 +1,45 @@
+# Maintainer: Håvard Pettersson <mail@haavard.me>
+# Contributor: RunningDroid <runningdroid AT zoho.com>
+# Contributor: Marat "Morion" Talipov <morion.self@gmail.com>
+
+_pkgname=tox-qt
+pkgname="${_pkgname}-git"
+pkgver=0.1.0.r382.g102a776
+pkgrel=1
+
+pkgdesc='Qt Tox client'
+arch=('i686' 'x86_64')
+url='http://tox.im'
+license=('GPL3')
+
+depends=('tox' 'qt5-base')
+makedepends=('git')
+
+provides=("${_pkgname}")
+conflicts=("${_pkgname}")
+
+source=("${pkgname}::git+https://github.com/nurupo/ProjectTox-Qt-GUI.git")
+md5sums=('SKIP')
+
+pkgver() {
+  cd "${pkgname}"
+  printf "r%s.g%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+  cd "${pkgname}"
+  git submodule update --init --recursive
+  mkdir build
+}
+
+build() {
+  cd "${pkgname}/build"
+  qmake -qt=5 ../projectfiles/QtCreator/TOX-Qt-GUI.pro
+  make
+}
+
+package() {
+  cd "${pkgname}/build"
+  install -Dm755 TOX-Qt-GUI "$pkgdir/usr/bin/tox-qt"
+}
+

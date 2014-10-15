@@ -11,7 +11,8 @@ arch=('i686' 'x86_64')
 url='https://github.com/notsecure/uTox'
 license=('GPL3')
 
-depends=('tox' 'libxrender' 'openal' 'v4l-utils' 'libdbus' 'libxext' 'fontconfig' 'desktop-file-utils' 'hicolor-icon-theme')
+depends=('tox' 'libxrender' 'openal' 'v4l-utils' 'libdbus' 'libxext'
+         'fontconfig' 'desktop-file-utils' 'hicolor-icon-theme')
 makedepends=('git')
 
 provides=('utox')

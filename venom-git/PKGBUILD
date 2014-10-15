@@ -11,7 +11,8 @@ arch=('i686' 'x86_64')
 url='https://github.com/naxuroqa/Venom'
 license=('GPL')
 
-depends=('tox' 'gtk3>=3.4.1' 'sqlite>=3.7.9' 'json-glib>=0.14.2' 'qrencode>=3.1.1' 'libnotify>=0.7.3' 'desktop-file-utils')
+depends=('tox' 'gtk3>=3.4.1' 'sqlite>=3.7.9' 'json-glib>=0.14.2'
+         'qrencode>=3.1.1' 'libnotify>=0.7.3' 'desktop-file-utils')
 makedepends=('git' 'cmake' 'vala>=0.18.1')
 
 provides=("${_pkgname}")

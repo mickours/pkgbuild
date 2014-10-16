@@ -14,6 +14,7 @@ license=('GPL3')
 depends=('tox' 'libxrender' 'openal' 'v4l-utils' 'libdbus' 'libxext'
          'fontconfig' 'desktop-file-utils' 'hicolor-icon-theme')
 makedepends=('git')
+optdepends=('gtk2: GTK file picker')
 
 provides=('utox')
 conflicts=('utox')

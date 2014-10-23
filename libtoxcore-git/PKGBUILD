@@ -12,7 +12,7 @@ arch=('i686' 'x86_64')
 url='https://tox.im/'
 license=('GPL3')
 
-depends=('libconfig>=1.4' 'libsodium' 'libvpx' 'opus')
+depends=('libconfig>=1.4' 'libsodium>=1.0' 'libvpx' 'opus')
 makedepends=('check' 'git')
 
 provides=('tox')

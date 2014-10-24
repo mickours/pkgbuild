@@ -1,0 +1,35 @@
+# Maintainer: Håvard Pettersson <mail@haavard.me>
+# Contributor: k2s
+# Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
+
+pkgname=tox-prpl
+pkgver=0.4.2
+pkgrel=1
+
+pkgdesc='Tox protocol plugin for Pidgin/libpurple'
+arch=('i686' 'x86_64')
+url='http://tox.dhs.org'
+license=('GPL3')
+
+depends=('tox' 'libpurple')
+
+source=("https://github.com/jin-eld/tox-prpl/archive/v$pkgver.tar.gz")
+md5sums=('b09cd2f81858bb11f46a6a20c680e041')
+sha256sums=('d33bc47f44eb14ec3320aa80c214b7a346230c8d72e924715f351f10048231f4')
+
+prepare() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  autoreconf -fi
+}
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  make DESTDIR="${pkgdir}" install
+}
+

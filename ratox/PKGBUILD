@@ -11,7 +11,7 @@ license=('MIT')
 
 depends=('tox')
 
-source=("http://git.2f30.org/ratox/snapshot/ratox-${pkgver}.tar.gz"
+source=("http://git.2f30.org/${pkgname}/snapshot/${pkgname}-${pkgver}.tar.gz"
         'tox_is_save_encrypted.patch')
 md5sums=('c77bb09c0ddb1220d74de9396a3c5ecb'
          '1dec20c23ab25ec87aa556f69246e82e')

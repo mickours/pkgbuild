@@ -15,7 +15,7 @@ depends=('tox' 'freealut' 'libnotify')
 provides=('toxic')
 conflicts=('toxic')
 
-source=("https://github.com/Tox/toxic/archive/v${pkgver}.tar.gz"
+source=("https://github.com/Tox/${pkgname}/archive/v${pkgver}.tar.gz"
         'tox_is_save_encrypted.patch'
         'makefile_git.patch')
 md5sums=('6a45cd93d3a64b0b580361a959616140'

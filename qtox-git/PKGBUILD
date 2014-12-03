@@ -11,7 +11,7 @@ arch=('i686' 'x86_64')
 url='https://github.com/tux3/qTox'
 license=('GPL3')
 
-depends=('tox' 'qt5-base' 'desktop-file-utils' 'opencv' 'openal')
+depends=('tox' 'qt5-base' 'desktop-file-utils' 'opencv' 'openal' 'libxss')
 makedepends=('git' 'qt5-tools')
 
 provides=("${_pkgname}")

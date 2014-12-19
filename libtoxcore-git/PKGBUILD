@@ -15,8 +15,8 @@ license=('GPL3')
 depends=('libconfig>=1.4' 'libsodium>=1.0' 'libvpx' 'opus')
 makedepends=('check' 'git')
 
-provides=('tox')
-conflicts=('tox')
+provides=("${_pkgname}" 'tox' 'toxcore')
+conflicts=("${_pkgname}" 'tox' 'toxcore')
 
 source=("${pkgname}::git+https://github.com/irungentoo/toxcore")
 md5sums=('SKIP')

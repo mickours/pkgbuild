@@ -26,12 +26,12 @@ pkgver() {
 }
 
 build() {
-  cd "$pkgname"
+  cd "${pkgname}"
   make
 }
 
 package() {
-  cd "$pkgname"
-  make PREFIX=/usr DESTDIR="$pkgdir" install
+  cd "${pkgname}"
+  make PREFIX=/usr DESTDIR="${pkgdir}" install
 }
 

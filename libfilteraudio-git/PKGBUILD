@@ -1,0 +1,41 @@
+# Maintainer: Håvard Pettersson <mail@haavard.me>
+
+_pkgname=libfilteraudio
+pkgname="${_pkgname}-git"
+pkgver=r12.gb40985d
+pkgrel=1
+
+pkgdesc='An easy to use audio filtering library made from webrtc code.'
+arch=('i686' 'x86_64')
+url='https://github.com/irungentoo/filter_audio'
+license=('BSD')
+
+depends=('glibc')
+makedepends=('git')
+
+provides=("${_pkgname}" 'filter_audio')
+conflicts=("${_pkgname}" 'filter_audio')
+
+source=("${pkgname}::git+https://github.com/irungentoo/filter_audio.git"
+        'LICENSE')
+md5sums=('SKIP'
+         'ad296492125bc71530d06234d9bfebe0')
+sha256sums=('SKIP'
+            'ab00a482b6a3902e40211b43c5d0441962ea99b6cc7c25c0f243fa270b78d482')
+
+pkgver() {
+  cd "${pkgname}"
+  printf "r%s.g%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+  cd "${pkgname}"
+  make
+}
+
+package() {
+  cd "${pkgname}"
+  make PREFIX=/usr DESTDIR="${pkgdir}" install
+  install -Dm644 "${srcdir}"/LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
+

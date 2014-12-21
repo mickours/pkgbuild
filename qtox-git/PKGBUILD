@@ -3,7 +3,7 @@
 
 _pkgname=qtox
 pkgname="${_pkgname}-git"
-pkgver=r928.gf2f5722
+pkgver=r1753.g9bc6ae5
 pkgrel=1
 
 pkgdesc='Qt Tox client'
@@ -11,7 +11,8 @@ arch=('i686' 'x86_64')
 url='https://github.com/tux3/qTox'
 license=('GPL3')
 
-depends=('tox' 'qt5-base' 'desktop-file-utils' 'opencv' 'openal' 'libxss')
+depends=('libtoxcore' 'qt5-base' 'desktop-file-utils' 'opencv' 'openal' 'libxss'
+         'libfilteraudio')
 makedepends=('git' 'qt5-tools')
 
 provides=("${_pkgname}")
@@ -31,30 +32,27 @@ pkgver() {
   printf "r%s.g%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 }
 
-prepare() {
-  cd "${pkgname}"
-  install -d libs
-  ln -s /usr/lib libs/
-  ln -s /usr/include libs/
-  sed -i 's|SMILEYPACK_DEFAULT_PATH "./smileys"|SMILEYPACK_DEFAULT_PATH "/usr/share/qtox/smileys"|' src/misc/smileypack.h
-}
-
 build() {
   cd "${pkgname}"
-  install -d build
-  cd build
+  mkdir build && cd build
   qmake-qt5 ..
   make
 }
 
 package() {
-    install -Dm644 "${_pkgname}.desktop" \
-                   "${pkgdir}/usr/share/applications/${_pkgname}.desktop"
-    install -Dm644 "${pkgname}/img/icon.png" \
-                   "${pkgdir}/usr/share/pixmaps/${_pkgname}.png"
-    install -Dm755 "${pkgname}/build/${_pkgname}" \
-                    "${pkgdir}/usr/bin/${_pkgname}"
-    install -d "${pkgdir}/usr/share/${_pkgname}"
-    cp -R "${pkgname}/smileys" "${pkgdir}/usr/share/${_pkgname}"
-}
+  cd "${pkgname}"
+  install -Dm755 "build/${_pkgname}" \
+                 "${pkgdir}/usr/bin/${_pkgname}"
 
+  install -Dm644 "../${_pkgname}.desktop" \
+                 "${pkgdir}/usr/share/applications/${_pkgname}.desktop"
+
+  install -Dm644 "img/icons/${_pkgname}.svg" \
+                 "${pkgdir}/usr/share/icons/hicolor/scalable/apps/${_pkgname}.png"
+
+  for _icon in img/icons/*.png; do
+    _size=$(egrep -o '[0-9]+x[0-9]+' <<< "${_icon}")
+    install -Dm644 "${_icon}" \
+                   "${pkgdir}/usr/share/icons/hicolor/${_size}/apps/${_pkgname}.png"
+  done
+}

@@ -1,0 +1,50 @@
+# Maintainer: Håvard Pettersson <mail@haavard.me>
+# Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
+# Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
+# Contributor: Thorsten Töpper <atsutane-tu@freethoughts.de>
+# Contributor: Thayer Williams <thayer@archlinux.org>
+# Contributor: Jeff 'codemac' Mickey <jeff@archlinux.org>
+
+_pkgname=dmenu
+pkgname="${_pkgname}-xft-git"
+pkgver=r494.g13a529c
+pkgrel=1
+
+pkgdesc="A generic menu for X (with Xft support)"
+arch=('i686' 'x86_64')
+url="http://tools.suckless.org/dmenu/"
+license=('MIT')
+
+depends=('libxinerama' 'libxft')
+makedepends=('git')
+
+provides=("${_pkgname}")
+conflicts=("${_pkgname}")
+
+source=("${pkgname}::git+http://git.suckless.org/dmenu"
+        "${pkgname}.patch")
+md5sums=('SKIP'
+         '61914262c80dad6da133024b7d11ff57')
+sha256sums=('SKIP'
+            '9b3fb4b85dbc08921eb271fe2ff324f47bf833bc00b4da7ca0e9f23c3107d397')
+
+pkgver() {
+  cd "${pkgname}"
+  printf "r%s.g%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+  cd "${pkgname}"
+  patch -p1 -i "${srcdir}/${pkgname}.patch"
+}
+
+build() {
+  cd "${pkgname}"
+  make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
+}
+
+package() {
+  cd "${pkgname}"
+  make PREFIX=/usr DESTDIR="${pkgdir}" install
+  install -Dm644 LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
+}

@@ -21,7 +21,8 @@ makedepends=('git')
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
 
-source=("${pkgname}::git+http://git.suckless.org/dmenu"
+_commit=13a529c
+source=("${pkgname}::git+http://git.suckless.org/dmenu#commit=${_commit}"
         "${pkgname}.patch")
 md5sums=('SKIP'
          '61914262c80dad6da133024b7d11ff57')

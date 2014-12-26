@@ -10,10 +10,7 @@ arch=('i686' 'x86_64')
 url='http://tox.im'
 license=('GPL3')
 
-depends=('tox' 'freealut' 'libnotify')
-
-provides=('toxic')
-conflicts=('toxic')
+depends=('libtoxcore' 'freealut' 'libnotify')
 
 source=("https://github.com/Tox/${pkgname}/archive/v${pkgver}.tar.gz"
         'tox_is_save_encrypted.patch'

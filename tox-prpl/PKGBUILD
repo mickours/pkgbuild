@@ -11,9 +11,9 @@ arch=('i686' 'x86_64')
 url='http://tox.dhs.org'
 license=('GPL3')
 
-depends=('tox' 'libpurple')
+depends=('libtoxcore' 'libpurple')
 
-source=("https://github.com/jin-eld/tox-prpl/archive/v${pkgver}.tar.gz")
+source=("https://github.com/jin-eld/${pkgname}/archive/v${pkgver}.tar.gz")
 md5sums=('b09cd2f81858bb11f46a6a20c680e041')
 sha256sums=('d33bc47f44eb14ec3320aa80c214b7a346230c8d72e924715f351f10048231f4')
 

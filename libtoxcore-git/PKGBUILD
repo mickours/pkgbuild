@@ -22,12 +22,12 @@ source=("${pkgname}::git+https://github.com/irungentoo/toxcore")
 md5sums=('SKIP')
 
 pkgver() {
-  cd "${pkgname}"
-  printf "r%s.g%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+  cd "${srcdir}/${pkgname}"
+  echo "r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
 }
 
 build() {
-  cd "${pkgname}"
+  cd "${srcdir}/${pkgname}"
   autoreconf -i
   ./configure --prefix=/usr \
               --enable-ntox \
@@ -41,7 +41,7 @@ build() {
 # }
 
 package() {
-  cd "${pkgname}"
+  cd "${srcdir}/${pkgname}"
   make DESTDIR="${pkgdir}" install
 }
 

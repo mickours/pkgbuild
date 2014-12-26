@@ -24,17 +24,17 @@ sha256sums=('SKIP'
             'ab00a482b6a3902e40211b43c5d0441962ea99b6cc7c25c0f243fa270b78d482')
 
 pkgver() {
-  cd "${pkgname}"
-  printf "r%s.g%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+  cd "${srcdir}/${pkgname}"
+  echo "r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
 }
 
 build() {
-  cd "${pkgname}"
+  cd "${srcdir}/${pkgname}"
   make
 }
 
 package() {
-  cd "${pkgname}"
+  cd "${srcdir}/${pkgname}"
   make PREFIX=/usr DESTDIR="${pkgdir}" install
   install -Dm644 "${srcdir}"/LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }

@@ -30,22 +30,22 @@ sha256sums=('SKIP'
             '9b3fb4b85dbc08921eb271fe2ff324f47bf833bc00b4da7ca0e9f23c3107d397')
 
 pkgver() {
-  cd "${pkgname}"
-  printf "r%s.g%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+  cd "${srcdir}/${pkgname}"
+  echo "r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
 }
 
 prepare() {
-  cd "${pkgname}"
+  cd "${srcdir}/${pkgname}"
   patch -p1 -i "${srcdir}/${pkgname}.patch"
 }
 
 build() {
-  cd "${pkgname}"
+  cd "${srcdir}/${pkgname}"
   make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
 }
 
 package() {
-  cd "${pkgname}"
+  cd "${srcdir}/${pkgname}"
   make PREFIX=/usr DESTDIR="${pkgdir}" install
-  install -Dm644 LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
+  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }

@@ -9,7 +9,7 @@ arch=('i686' 'x86_64')
 url='http://ratox.2f30.org'
 license=('MIT')
 
-depends=('tox')
+depends=('libtoxcore')
 
 source=("http://git.2f30.org/${pkgname}/snapshot/${pkgname}-${pkgver}.tar.gz")
 md5sums=('3fe198121648b6632d6dc1047a10e7f7')

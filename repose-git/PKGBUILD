@@ -14,24 +14,24 @@ license=('GPL')
 depends=('pacman')
 makedepends=('git')
 
-provides=('repose')
-conflicts=('repose')
+provides=("${_pkgname}")
+conflicts=("${_pkgname}")
 
-source=("${pkgname}::git+https://github.com/vodik/repose.git")
+source=("${pkgname}::git+https://github.com/vodik/${pkgname}.git")
 md5sums=('SKIP')
 
 pkgver() {
-  cd "${pkgname}"
-  printf "r%s.g%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+  cd "${srcdir}/${pkgname}"
+  echo "r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
 }
 
 build() {
-  cd "${pkgname}"
+  cd "${srcdir}/${pkgname}"
   make
 }
 
 package() {
-  cd "${pkgname}"
+  cd "${srcdir}/${pkgname}"
   make PREFIX=/usr DESTDIR="${pkgdir}" install
 }
 

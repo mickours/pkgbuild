@@ -18,7 +18,7 @@ makedepends=('git' 'qt5-tools')
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
 
-install="${_pkgname}.install"
+install="${pkgname}.install"
 
 source=("${pkgname}::git+https://github.com/tux3/qTox.git"
         "${_pkgname}.desktop")
@@ -28,19 +28,19 @@ sha256sums=('SKIP'
             '681586914321da3131babc23702be7494d270bf7b635c78771399359ea497b63')
 
 pkgver() {
-  cd "${pkgname}"
-  printf "r%s.g%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+  cd "${srcdir}/${pkgname}"
+  echo "r$(git rev-list --count HEAD).g$(git rev-parse --short HEAD)"
 }
 
 build() {
-  cd "${pkgname}"
+  cd "${srcdir}/${pkgname}"
   mkdir build && cd build
   qmake-qt5 ..
   make
 }
 
 package() {
-  cd "${pkgname}"
+  cd "${srcdir}/${pkgname}"
   install -Dm755 "build/${_pkgname}" \
                  "${pkgdir}/usr/bin/${_pkgname}"
 
